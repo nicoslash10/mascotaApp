@@ -26,7 +26,32 @@ function MascotaForm() {
 
       setOpciones(response.data);
     } catch (error) {
-      console.log(error);
+      console.log(error.response?.status);
+      console.log(error.response?.data);
+      console.log(error.response?.headers);
+      console.log(error.message);
+
+      const status = error.response?.status;
+
+      switch (status) {
+        case 400:
+          setErrores({
+            general: "No se pudieron validar las opciones del formulario",
+          });
+          break;
+
+        case 404:
+          setErrores({
+            general: "No se encontraron las opciones del formulario",
+          });
+          break;
+
+        default:
+          setErrores({
+            general: "No se pudieron cargar las opciones. Revise su conexión",
+          });
+          break;
+      }
     }
   };
 
@@ -34,6 +59,7 @@ function MascotaForm() {
     e.preventDefault();
 
     const formData = new FormData();
+
     formData.append("nombre", nombre);
     formData.append("descripcion", descripcion);
     formData.append("imagen", imagen);
@@ -52,6 +78,10 @@ function MascotaForm() {
       console.error("Error al registrar la mascota:", error);
     }
   }
+
+  useEffect(() => {
+    cargarOpciones();
+  }, []);
 
   return (
     <form onSubmit={handleSubmit}>
