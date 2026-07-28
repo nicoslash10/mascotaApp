@@ -184,9 +184,185 @@ function MascotaForm() {
   }, []);
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h1>Registrar mascota</h1>
-    </form>
+    <div>
+      <h2 className="mb-4">Registrar Mascota</h2>
+
+      {errores.general && (
+        <div className="alert alert-danger">{errores.general}</div>
+      )}
+
+      <form onSubmit={(e) => handleSubmit(e)}>
+        <div className="mb-3">
+          <label className="form-label">Nombre</label>
+
+          <input
+            type="text"
+            className="form-control"
+            maxLength="100"
+            value={nombre}
+            onChange={(e) => setNombre(e.target.value)}
+          />
+
+          {errores.nombre && (
+            <p className="text-danger">{errores.nombre[0]}</p>
+          )}
+        </div>
+
+        <div className="mb-3">
+          <label className="form-label">Descripción</label>
+
+          <textarea
+            className="form-control"
+            rows="3"
+            value={descripcion}
+            onChange={(e) => setDescripcion(e.target.value)}
+          />
+
+          {errores.descripcion && (
+            <p className="text-danger">{errores.descripcion[0]}</p>
+          )}
+        </div>
+
+        <div className="mb-3">
+          <label className="form-label">Imagen</label>
+
+          <input
+            type="file"
+            className="form-control"
+            accept="image/*"
+            onChange={(e) => setImagen(e.target.files[0])}
+          />
+
+          {errores.imagen && (
+            <p className="text-danger">{errores.imagen[0]}</p>
+          )}
+        </div>
+
+        <div className="mb-3">
+          <label className="form-label">Estado</label>
+
+          <select
+            className="form-select"
+            value={estado}
+            onChange={(e) => setEstado(e.target.value)}
+          >
+            <option value="">Usar valor por defecto</option>
+
+            {opciones?.estado?.map((opcion) => (
+              <option key={opcion.value} value={opcion.value}>
+                {opcion.label}
+              </option>
+            ))}
+          </select>
+
+          {errores.estado && (
+            <p className="text-danger">{errores.estado[0]}</p>
+          )}
+        </div>
+
+        <div className="mb-3">
+          <label className="form-label">Tipo de animal</label>
+
+          <select
+            className="form-select"
+            value={tipoAnimal}
+            onChange={(e) => setTipoAnimal(e.target.value)}
+          >
+            <option value="">Usar valor por defecto</option>
+
+            {opciones?.tipo_animal?.map((opcion) => (
+              <option key={opcion.value} value={opcion.value}>
+                {opcion.label}
+              </option>
+            ))}
+          </select>
+
+          {errores.tipo_animal && (
+            <p className="text-danger">{errores.tipo_animal[0]}</p>
+          )}
+        </div>
+
+        <div className="mb-3">
+          <label className="form-label">Edad</label>
+
+          <input
+            type="number"
+            min="0"
+            className="form-control"
+            value={edad}
+            onChange={(e) => setEdad(e.target.value)}
+          />
+
+          {errores.edad && (
+            <p className="text-danger">{errores.edad[0]}</p>
+          )}
+        </div>
+
+        <div className="mb-3">
+          <label className="form-label">Raza</label>
+
+          <input
+            type="text"
+            className="form-control"
+            maxLength="100"
+            value={raza}
+            onChange={(e) => setRaza(e.target.value)}
+          />
+
+          {errores.raza && (
+            <p className="text-danger">{errores.raza[0]}</p>
+          )}
+        </div>
+
+        <div className="mb-3">
+          <label className="form-label">Sexo</label>
+
+          <select
+            className="form-select"
+            value={sexo}
+            onChange={(e) => setSexo(e.target.value)}
+          >
+            <option value="">Usar valor por defecto</option>
+
+            {opciones?.sexo?.map((opcion) => (
+              <option key={opcion.value} value={opcion.value}>
+                {opcion.label}
+              </option>
+            ))}
+          </select>
+
+          {errores.sexo && (
+            <p className="text-danger">{errores.sexo[0]}</p>
+          )}
+        </div>
+
+        <div className="mb-3">
+          <label className="form-label">Tamaño</label>
+
+          <select
+            className="form-select"
+            value={tamano}
+            onChange={(e) => setTamano(e.target.value)}
+          >
+            <option value="">Usar valor por defecto</option>
+
+            {opciones?.tamano?.map((opcion) => (
+              <option key={opcion.value} value={opcion.value}>
+                {opcion.label}
+              </option>
+            ))}
+          </select>
+
+          {errores.tamano && (
+            <p className="text-danger">{errores.tamano[0]}</p>
+          )}
+        </div>
+
+        <button type="submit" className="btn btn-success">
+          Registrar Mascota
+        </button>
+      </form>
+    </div>
   );
 }
 
