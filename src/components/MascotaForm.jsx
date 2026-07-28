@@ -18,8 +18,19 @@ function MascotaForm() {
   async function handleSubmit(e) {
     e.preventDefault();
 
+    const formData = new FormData();
+    formData.append("nombre", nombre);
+    formData.append("descripcion", descripcion);
+    formData.append("imagen", imagen);
+    formData.append("estado", estado);
+    formData.append("tipoAnimal", tipoAnimal);
+    formData.append("edad", edad);
+    formData.append("raza", raza);
+    formData.append("sexo", sexo);
+    formData.append("tamano", tamano);
+
     try {
-      // Aquí se agregará la lógica para registrar la mascota
+      // Aquí se agregará la llamada a la API
     } catch (error) {
       console.error(error);
     }
