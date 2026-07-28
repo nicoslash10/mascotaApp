@@ -55,29 +55,91 @@ function MascotaForm() {
     }
   };
 
-  async function handleSubmit(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setErrores({});
+
+    if (!nombre.trim()) {
+      setErrores({
+        nombre: ["Debe ingresar el nombre de la mascota"],
+      });
+      return;
+    }
+
+    if (nombre.trim().length > 100) {
+      setErrores({
+        nombre: ["El nombre no puede tener más de 100 caracteres"],
+      });
+      return;
+    }
+
+    if (!descripcion.trim()) {
+      setErrores({
+        descripcion: ["Debe ingresar la descripción de la mascota"],
+      });
+      return;
+    }
+
+    if (!imagen) {
+      setErrores({
+        imagen: ["Debe seleccionar una imagen"],
+      });
+      return;
+    }
+
+    if (edad !== "" && Number(edad) < 0) {
+      setErrores({
+        edad: ["La edad debe ser mayor o igual a 0"],
+      });
+      return;
+    }
+
+    if (raza.trim().length > 100) {
+      setErrores({
+        raza: ["La raza no puede tener más de 100 caracteres"],
+      });
+      return;
+    }
 
     const formData = new FormData();
 
-    formData.append("nombre", nombre);
-    formData.append("descripcion", descripcion);
+    formData.append("nombre", nombre.trim());
+    formData.append("descripcion", descripcion.trim());
     formData.append("imagen", imagen);
-    formData.append("estado", estado);
-    formData.append("tipoAnimal", tipoAnimal);
-    formData.append("edad", edad);
-    formData.append("raza", raza);
-    formData.append("sexo", sexo);
-    formData.append("tamano", tamano);
+
+    if (estado) {
+      formData.append("estado", estado);
+    }
+
+    if (tipoAnimal) {
+      formData.append("tipo_animal", tipoAnimal);
+    }
+
+    if (edad !== "") {
+      formData.append("edad", edad);
+    }
+
+    if (raza.trim()) {
+      formData.append("raza", raza.trim());
+    }
+
+    if (sexo) {
+      formData.append("sexo", sexo);
+    }
+
+    if (tamano) {
+      formData.append("tamano", tamano);
+    }
 
     try {
-      await api.post("/mascotas/", formData);
+      await api.post("mascotas/", formData);
 
       navigate("/");
     } catch (error) {
       console.error("Error al registrar la mascota:", error);
     }
-  }
+  };
 
   useEffect(() => {
     cargarOpciones();
