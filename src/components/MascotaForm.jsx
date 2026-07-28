@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 
 function MascotaForm() {
-  const navigate = useNavigate();
-
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [imagen, setImagen] = useState(null);
@@ -14,6 +12,23 @@ function MascotaForm() {
   const [raza, setRaza] = useState("");
   const [sexo, setSexo] = useState("");
   const [tamano, setTamano] = useState("");
+
+  const [opciones, setOpciones] = useState(null);
+  const [errores, setErrores] = useState({});
+
+  const navigate = useNavigate();
+
+  const cargarOpciones = async () => {
+    try {
+      const response = await api.get("choices/");
+
+      console.log("Opciones cargadas:", response.data);
+
+      setOpciones(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   async function handleSubmit(e) {
     e.preventDefault();
