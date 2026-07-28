@@ -30,9 +30,11 @@ function MascotaForm() {
     formData.append("tamano", tamano);
 
     try {
-      // Aquí se agregará la llamada a la API
+      await api.post("/mascotas/", formData);
+
+      navigate("/");
     } catch (error) {
-      console.error(error);
+      console.error("Error al registrar la mascota:", error);
     }
   }
 
