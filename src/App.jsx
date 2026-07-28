@@ -1,3 +1,4 @@
+import { Routes, Route, Navigate } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import MascotaPage from "./pages/MascotaPage";
 
