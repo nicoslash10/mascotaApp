@@ -55,7 +55,7 @@ function MascotaForm() {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     setErrores({});
@@ -132,10 +132,19 @@ function MascotaForm() {
       formData.append("tamano", tamano);
     }
 
-    try {
-      await api.post("mascotas/", formData);
+    addMascota(formData);
+  };
 
-      navigate("/");
+  const addMascota = async (formData) => {
+    try {
+      const response = await api.post("mascotas/", formData);
+
+      console.log("Mascota creada:", response.data);
+
+      if (response.status === 201) {
+        alert("Mascota registrada correctamente");
+        navigate("/mascotas/listar");
+      }
     } catch (error) {
       console.error("Error al registrar la mascota:", error);
     }
@@ -153,3 +162,5 @@ function MascotaForm() {
 }
 
 export default MascotaForm;
+
+    
